@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ice Breaker</title>
+        <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chgibb/css-spinners@2.2.1/css/spinner/three-quarters.min.css">
+    </head>
+    <body>
+        <header>
+            <form id="name-form" style="margin: 0 auto">
+                <h1>Ice Breaker</h1>
+                <input type="text" name="my_name" placeholder="Your name (as on LinkedIn)" required>
+                <input type="text" name="target_name" placeholder="Target person's name (as on LinkedIn)" required>
+                <button id="magic-button" type="submit" class="center">Do Your Magic</button>
+            </form>
+        </header>
+        <div id="spinner" style="text-align: center; display: none">
+            <span class="three-quarters-loader" style="width: 100px; height: 100px; border-radius: 50%; border-width: 12px;"></span>
+        </div>
+        <main id="result" style="display: none">
+            <div style="text-align: center">
+                <img id="photoUrl" src="" alt="Profile Picture" style="width: 300px; max-width: 100%; height: auto; border-radius: 50%; margin-bottom: 20px;">
+            </div>
+            <div>
+                <h2>Summary</h2>
+                <p id="summary"></p>
+            </div>
+            <div>
+                <h2>Interesting Facts</h2>
+                <div id="facts"></div>
+            </div>
+            <div>
+                <h2>Ice Breakers</h2>
+                <div id="ice-breakers"></div>
+            </div>
+            <div>
+                <h2>Message to Paste</h2>
+                <pre id="icebreaker-message" style="white-space:pre-wrap;"></pre>
+                <button type="button" id="copy-btn" disabled>Copy</button>
+                <span id="copy-status" style="margin-left:8px; font-size:0.9em; display:none;">Copied</span>
+            </div>
+        </main>
+
+        <script>
+            const form = document.getElementById("name-form");
+            const spinner = document.getElementById("spinner");
+            const result = document.getElementById("result");
+            const copyBtn = document.getElementById("copy-btn");
+            const copyStatus = document.getElementById("copy-status");
+
+            form.addEventListener("submit", (ev) => {
+                ev.preventDefault();
+                result.style.display = "none";
+                spinner.style.display = "";
+                copyBtn.textContent = "Copy";
+                copyBtn.disabled = true;
+                copyStatus.style.display = "none";
+
+                const formData = new FormData(form);
+
+                fetch("/process", {method: "POST", body: formData})
+                    .then(response => {
+                        if (response.ok) return response.json();
+                        throw new Error("POST request failed");
+                    })
+                    .then(data => {
+                        document.getElementById("photoUrl").src = data.photoUrl;
+                        document.getElementById("summary").textContent = data.summary_and_facts.summary;
+                        createHtmlList(document.getElementById("facts"), data.summary_and_facts.facts);
+                        createHtmlList(document.getElementById("ice-breakers"), data.summary_and_facts.common_things || []);
+                        const msg = data.summary_and_facts.icebreaker_message || "";
+                        document.getElementById("icebreaker-message").textContent = msg;
+                        
+                        copyBtn.disabled = msg.length === 0;
+                        spinner.style.display = "none";
+                        result.style.display = "";
+                    })
+                    .catch(err => {
+                    console.error(err);
+                    spinner.style.display = "none";
+                    });
+                });
+
+            function createHtmlList(element, items)
+            {
+                const ul = document.createElement("ul");
+
+                items.forEach(item => {
+                    const li = document.createElement("li");
+                    li.textContent = item;
+                    ul.appendChild(li);
+                })
+
+                element.innerHTML = "";
+                element.appendChild(ul);
+            }
+
+            // copy button feedback logic so the user sees "Copied!" after clicking copy and cannot spam copy for a few seconds
+            copyBtn.addEventListener("click", () => {
+                const textToCopy = document.getElementById("icebreaker-message").textContent;
+                if (!textToCopy) return;
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    copyBtn.textContent = "Copied!";
+                    copyBtn.disabled = true;
+                    copyStatus.style.display = "inline";
+                    
+                    setTimeout(() => {
+                        copyBtn.textContent = "Copy";
+                        copyBtn.disabled = false;
+                        copyStatus.style.display = "none";
+                    }, 2000);
+                }).catch(err => {
+                    console.error("Copy failed", err);
+                });
+            });
+
+        </script>
+    </body>
+</html>

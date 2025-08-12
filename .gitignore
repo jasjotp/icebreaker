@@ -1,0 +1,43 @@
+# bytecode
+__pycache__/
+*.py[cod]
+
+# env and secrets
+.env
+
+# virtual envs
+.venv/
+venv/
+env/
+
+# build and packaging
+build/
+dist/
+*.egg-info/
+
+# caches and reports
+.cache/
+.pytest_cache/
+.mypy_cache/
+.coverage*
+htmlcov/
+
+# notebooks
+.ipynb_checkpoints/
+
+# flask
+instance/
+db.sqlite3
+
+# logs
+*.log
+
+# os junk
+.DS_Store
+Thumbs.db
+
+# vercel cli
+.vercel/
+
+# pyenv
+.python-version
