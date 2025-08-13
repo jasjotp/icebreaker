@@ -87,7 +87,7 @@ LinkedIn Ice Breaker is an intelligent networking tool that analyzes two LinkedI
 
 ### Installation 
 
-- 1. **Open the site [![Site](https://icebreaker-ai.vercel.app)]**
+- 1. **Open the site [https://icebreaker-ai.vercel.app](https://icebreaker-ai.vercel.app)**
 
 - 2. **Enter your name and the target name**
 
