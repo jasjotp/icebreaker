@@ -13,7 +13,7 @@ class Summary(BaseModel):
         description = "A short, friendly LinkedIn message I can paste that uses the common things to spark a conversation.",
         default = ""
     )
-    
+        
     # function that recieves itself (Summary) as the object and returns the summary and facts as a dictionary  to help us serialize this object later on
     def to_dict(self) -> Dict[str, Any]:
         return {
