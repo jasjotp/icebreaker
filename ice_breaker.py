@@ -180,7 +180,7 @@ def ice_break_with(my_name: str, target_name: str) -> Tuple[Summary, Optional[st
         \n{format_instructions}
         
         Then produce:
-        4) linkedin_icebreaker_message: a single paragraph I can paste into LinkedIn DM.
+        4) icebreaker_message: a single paragraph I can paste into LinkedIn DM.
         - Use first person ("I").
         - Greet with "Hi {target_first_name}.
         - Mention {target_first_name} only once during the greeting.

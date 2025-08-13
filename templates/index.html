@@ -65,6 +65,7 @@
                         throw new Error("POST request failed");
                     })
                     .then(data => {
+                        console.log("process data:", data); 
                         document.getElementById("photoUrl").src = data.photoUrl;
                         document.getElementById("summary").textContent = data.summary_and_facts.summary;
                         createHtmlList(document.getElementById("facts"), data.summary_and_facts.facts);
