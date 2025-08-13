@@ -4,9 +4,11 @@
 
 [![Ice Breaker screenshot](site_screenshot.png)](https://icebreaker-ai.vercel.app)
 
+---
+
 ## Demo Video
 
-![Ice Breaker demo](docs/icebreaker_demo.gif)
+![Ice Breaker demo](icebreaker_demo.gif)
 
 ---
 
