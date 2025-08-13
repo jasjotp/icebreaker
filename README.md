@@ -6,10 +6,7 @@
 
 ## Demo Video
 
-<video width="100%" controls>
-  <source src="icebreaker_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+![Ice Breaker demo](docs/icebreaker_demo.gif)
 
 ---
 
@@ -52,17 +49,6 @@ LinkedIn Ice Breaker is an intelligent networking tool that analyzes two LinkedI
 ---
 
 ## Technical Architecture
-
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Frontend      │    │   Flask API      │    │   AI Agents     │
-│   (HTML/JS)     │───▶│   (app.py)       │───▶│   (LangChain)   │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-│                        │
-▼                        ▼
-┌──────────────────┐    ┌─────────────────┐
-│   Profile Data   │    │   External APIs │
-│   Processing     │    │   (Tavily/Scrapin)│
-└──────────────────┘    └─────────────────┘
 
 ### Core Components
 
